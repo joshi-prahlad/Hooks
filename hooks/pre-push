@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# An example hook script to verify what is about to be committed.
+# Called by "git commit" with no arguments.  The hook should
+# exit with non-zero status after issuing an appropriate message if
+# it wants to stop the commit.
+#
+# To enable this hook, rename this file to "pre-commit".
+
+echo "Running end to end tests"
+#(cd $(git rev-parse --show-toplevel) ; ./test/e2e/run.sh)
+#if [ $? -ne 0 ]; then
+    cat <<\EOF
+ERROR: Push failed. Make the end to end tests pass before attempting a push
+to remote repository.
+EOF
+    exit 1
+#fi
+
+
